@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0074)file:///C:/Users/chichao/Desktop/%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86.html -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>后台管理</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<link rel="stylesheet" href="css/admin.css">	
+		<link href="js/themes/default/easyui.css" rel="stylesheet"  type="text/css"/>
+		<link href="js/themes/icon.css" rel="stylesheet"  type="text/css"/>
+		<link href="css/demo.css"rel="stylesheet"  type="text/css" />
+	</head>
+	<body>		
+		<div class="container">
+			<div id="admin_right">
+				<div class="headbar">
+					<div class="position"><span>商品</span><span>&gt;</span><span>商品分类管理</span><span>&gt;</span><span>分类列表</span></div>
+					<div class="operating">
+						<a href="addfenlei.html"><button class="operating_btn" type="button" onclick=""><span class="addition">添加分类</span></button></a>
+					</div>
+					<div class="field">
+						<table class="list_table">
+							<colgroup>
+								<col width="100px">
+								<col>
+							</colgroup>
+							<thead>
+								<tr class="">
+									<th>排序</th>
+									<th>分类名称</th>
+									<th>首页显示</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+
+				<form action="" method="post" name="category_list">
+					<div class="content" style="height: 2063px;">
+						<table id="list_table" class="list_table">
+							<colgroup>
+								<col width="100px">
+								<col>
+							</colgroup>
+							<tbody id="lbtable">	
+								
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<script language="javascript">
+					//折叠展示
+					function displayData(_self) {
+						if(_self.alt == "关闭") {
+							jqshow($(_self).parent().parent().attr('id'), 'hide');
+							$(_self).attr("src", "./img/admin/open.gif");
+							_self.alt = '打开';
+						} else {
+							jqshow($(_self).parent().parent().attr('id'), 'show');
+							$(_self).attr("src", "./img/admin/close.gif");
+							_self.alt = '关闭';
+						}
+					}
+
+					function jqshow(id, isshow) {
+						var obj = $("#list_table tr[parent='" + id + "']");
+						if(obj.length > 0) {
+							obj.each(function(i) {
+								jqshow($(this).attr('id'), isshow);
+							});
+							if(isshow == 'hide') {
+								obj.hide();
+							} else {
+								obj.show();
+							}
+						}
+					}
+					//排序
+					function toSort(id) {
+						if(id != '') {
+							var va = $('#s' + id).val();
+							var part = /^\d+$/i;
+							if(va != '' && va != undefined && part.test(va)) {
+								$.get("/mall/index.php?controller=goods&action=category_sort", {
+									'id': id,
+									'sort': va
+								}, function(data) {
+									if(data == '1') {
+										alert('修改商品分类排序成功!');
+									} else {
+										alert('修改商品分类排序错误!');
+									}
+								});
+							}
+						}
+					}
+				</script>
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//DOM加载完毕执行
+			$(function() {
+				//隔行换色
+				$(".list_table tr:nth-child(even)").addClass('even');
+				$(".list_table tr").hover(
+					function() {
+						$(this).addClass("sel");
+					},
+					function() {
+						$(this).removeClass("sel");
+					}
+				);
+
+				var current = '/goods/category_list';
+				var url = '/mall/index.php';
+				initMenu(data, current, url);
+			});
+		</script>
+
+		<div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
+		<div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
+	</body>
+	 <script src="js/jQuery/jQuery-2.1.4.min.js"></script>
+	 <script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquerySession.js"></script>
+    <script src="js/jquery.easyui.min.js"></script>
+    
+    <script>
+    	$(function(){
+    		$.get("http://120.25.226.234/cdds/htgl",{
+    				version:0.1,
+    				token:$.session.get('token'),
+    				userid:$.session.get('userid'),    				
+    				action:"splb2"
+    			},function(data,textStatus){
+    				var maigin;
+    				$.each(data.resultObject, function(i,item) {
+    					if(item.parentid==0){
+    						maigin=0;
+    					}else{
+    						maigin=20;
+    					}
+    					$("#lbtable").append(
+    						"<tr id='"+item.lbid+"' parent='"+item.parentid+"' class=''>"+
+							"<td><input class='tiny' id='s"+item.lbid+"' size='2' type='text' onblur='toSort("+item.lbid+");' value='0'></td>"+
+							"<td><img style='margin-left:"+maigin+"px' class='operator' src='./img/admin/close.gif' onclick='displayData(this);' alt='关闭'>"+item.lbmc+"</td>"+
+							"<td><span class='green'>是</span></td>"+
+							"<td><a href='updatafenlei.html' onclick='xiugai("+item.lbid+")' > <img src='./img/admin/icon_edit.gif' alt='修改' title='修改'></a><a href='javascript:void(0)' onclick='remove("+item.lbid+")'><img class='operator' src='./img/admin/icon_del.gif' alt='删除' title='删除'></a></td></tr>"
+    					);
+    				});
+    			},"json");
+    	});
+    	function remove(obj){
+          $.messager.defaults = { ok: "是", cancel: "否" };
+     	  $.messager.confirm('Confirm','您确定要删除分类吗？确定请点击是',function(r){
+    		if(r){
+    			$.ajax({
+    				type:"get",
+    				url:"http://120.25.226.234/cdds/htgl",
+    				data:{version:0.1,token:$.session.get('token'),userid:$.session.get('userid'),action:"splbdelete",lbid:obj}
+    			}).done(function(data){
+    				
+    				if(data.statusCode==-1){
+    					alert("删除成功！");
+    					location.href="zidianweihu.html";
+    				}else{
+    					alert("删除失败");
+    				}
+    			}).fail(function(){
+    				
+    			}).always(function(){
+    				
+    			});
+    		}else{
+    			
+    		}
+		});
+    	}
+    	function xiugai(obj){
+    		$.session.set("xiugaizhongleiid",obj);
+    		
+    	}
+    </script>
+
+</html>

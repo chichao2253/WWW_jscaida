@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+		<title></title>		
+		<link rel="stylesheet" href="css/land.css">
+		<link rel="stylesheet" href="css/pub.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/umeditor.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.form.js"></script>		
+	</head>
+	<body>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">产品管理</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form id="addsp" method="post" enctype="multipart/form-data" onsubmit="checkgg()">
+        	<input id="token" name="token" value="" type="hidden">
+			<input id="userid" name="userid" value="" type="hidden">
+			<input id="version" name="version" value="0.1" type="hidden">
+			<input id="action" name="action" value="spupload" type="hidden">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">产品名称：</td>
+                    <td class="rgTdBt"><input type="text" name="spmc" value="" class="manageInput form-control" style="width: 20%;" />
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="lfTdBt">产品型号：</td>
+                    <td class="rgTdBt"><input type="text" name="spxh" value="" class="manageInput form-control" style="width: 20%;" />
+                     <code>例如：xhtest</code>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="lfTdBt">产品种类：</td>
+                    <td class="rgTdBt">
+                       <select name="data[category_id]" style="float: left;"  id="category_id" class="seleFl w210"></select>
+                       <select name="splb" style="float: left;"  id="category2_id" class="seleFl w210"></select>
+                    </td>
+                </tr>
+            <tr>
+            <td class="lfTdBt">单价：</td>
+             <td class="rgTdBt"><input type="number" name="dj" value="" class="manageInput form-control" style="width: 20%;" />
+ 			<code>单价，为数字，可含有小数</code>
+            </td>
+        	</tr>
+        	<tr>
+            <td class="lfTdBt">原单价：</td>
+             <td class="rgTdBt"><input type="number" name="ydj" value="" class="manageInput form-control" style="width: 20%;" />
+
+            </td>
+           </tr>
+            <tr>
+            <td class="lfTdBt">促销积分：</td>
+                <td class="rgTdBt"><input type="number" name="cxjf" value="" class="manageInput form-control" style="width: 20%;" />
+			
+            </td>            
+     	   </tr>
+     	   <tr>
+     	   	<td class="lfTdBt">商品规格：</td>
+     	   	
+            <td class="rgTdBt spgg ">
+            	
+            	<div id="guige">
+            		<input class="form-control ggmc1" placeholder="规格名称" style="width: 20%;" type="text" />
+            		<input class="form-control kc1" placeholder="库存" style="width: 20%;" type="text" />
+            	</div>         	
+            </td>
+            <td><input type="button" class="btn btn-danger" onclick="addButton()" value="点击添加"/></td>
+     	   </tr>
+     	   <script>
+     	   var num=2;
+     	   	function addButton(){
+   				var button="<div style='margin-top:10px ' ><input class='form-control ggmc"+num+"' placeholder='规格名称' style='width: 20%;margin-right:4px;'  type='text' /><input class='form-control kc"+num+"' placeholder='库存' style='width: 20%;' type='text' /></div>";
+   				num=num+1;
+    			$(".spgg").append(button);
+			}     	   
+     	   </script>     	   
+     	   <tr>
+     	   	<td class="lfTdBt">商品详情图片：</td>
+              <td class="rgTdBt">
+                <div><input type="file" name="spxq1" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spxq2" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spxq3" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spxq4" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spxq5" value="" class="manageInput" /></div>
+              </td>
+     	   </tr>     	   
+     	    <tr>
+     	   	<td class="lfTdBt">商品参数图片：</td>
+             <td class="rgTdBt">
+                <div><input type="file" name="spcs1" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spcs2" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spcs3" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spcs4" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spcs5" value="" class="manageInput" /></div>
+            </td>
+     	   </tr>
+     	    <tr>
+     	   	<td class="lfTdBt">商品介绍图片：</td>
+            <td class="rgTdBt">
+                <div><input type="file" name="spjs1" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spjs2" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spjs3" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spjs4" value="" class="manageInput" /></div>
+                <div style="margin-top: 20px;"><input type="file" name="spjs5" value="" class="manageInput" /></div>
+            </td>
+     	   </tr>
+    </table>
+            <div style="margin-left:140px;margin-top:20px">
+            	<input id="spgg"  value="" name="spgg" hidden="hidden" />
+                <input type="button" value="确认添加" onclick="add();"  class="smtQrIpt" />
+                <div>
+</form>
+</div>
+</div>
+<script>
+function add(){
+	var spgg = '';  	
+    var spgglength=$(".spgg").children().length;
+    for(var i=1;i<=spgglength;i++){
+    	var mc=$('.ggmc'+i+'').val();
+    	var kc=$('.kc'+i+'').val()
+    	spgg+=mc;
+    	spgg+=",";
+    	spgg+=kc;
+    	spgg+=";";
+    }
+  	$("#spgg").val(spgg);
+    var userid = $.session.get('userid');
+    var token  = $.session.get('token');
+    var formData = new FormData($( "#addsp" )[0]);  
+    		$.ajax({
+    			type:"POST",
+    			url:"http://120.25.226.234/cdds/htgl",
+    			data: formData,  
+        	  	async: false,  
+          		cache: false,  
+         	 	contentType: false,  
+         	 	processData: false,  
+         	 	dataType:"json"
+    		})
+    		.done(function(data){
+    			if(data.statusCode==-1){
+    				alert("添加成功");
+    			}else{
+    				alert("添加失败");
+    			}
+    		
+    		})
+    		.fail(function(){
+    			console.log("errors")
+    		})
+    		.always(function(){
+    			
+    		});
+	
+}
+$(function(){
+	  $("#token").val($.session.get('token'));
+      $("#userid").val($.session.get('userid'));
+	  var userid = $.session.get('userid');
+      var token = $.session.get('token');
+      $.ajax({
+        url: 'http://120.25.226.234/cdds/htgl',
+        type: 'POST',
+        dataType: 'json',
+        data: {version: '0.1',action: 'splb',userid: userid,token: token},
+      })
+      .done(function(data) {
+        var category_str = '';
+        var category2_str = '';
+        $.each(data['resultObject'],function(n,value) {
+            if(0 == value['lbid']){
+                category_id = value['lbid'];
+                $.each(value['lb2s'],function(a,value) {
+                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+                });
+                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+            }else{
+                category_id = value['lbid'];
+                $.each(value['lb2s'],function(a,value) {
+                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+                });
+                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+            }
+        });
+        $("#category_id").html(category_str);
+        $("#category2_id").html(category2_str);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      $("#category_id").change(function() {
+     
+        var category_id = $("#category_id").val();
+        var category2_str = "<option value='' >请选择...</option>";
+        var options = $("#category2_id").children('option');
+        $.each(options,function(index, el) {
+            if($(this).attr('id') == category_id){
+                $(this).removeAttr('hidden');
+            }else{
+                $(this).attr({
+                    hidden: 'hidden'
+                });
+            }
+            category2_str += $(this).prop('outerHTML');
+        });
+        $("#category2_id").html(category2_str);
+      });
+})		
+		</script>
+    <script src="js/jquerySession.js"></script>
+	</body>
+</html>

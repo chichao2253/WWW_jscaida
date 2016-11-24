@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://yanan.rztaiyang.com/admin/shop/apply.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <!-- <link href="/Baocms/Tpl/statics/css/index.css" rel="stylesheet" type="text/css" /> -->
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="css/land.css" rel="stylesheet" type="text/css">
+        <link href="css/pub.css" rel="stylesheet" type="text/css">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css">
+        <script> var BAO_PUBLIC = '/Public'; var BAO_ROOT = ''; </script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="shenhe_files/WdatePicker.js"></script><link href="css/WdatePicker.css" rel="stylesheet" type="text/css">
+        <script src="shenhe_files/admin.js"></script>
+    </head>
+    <body style="background-color: #f1f1f1;">
+         <iframe id="baocms_frm" name="baocms_frm" style="display:none;" src="#"></iframe>
+   <div class="main">
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家审核列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>前台申请 后台审核！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="http://yanan.rztaiyang.com/admin/shop/apply.html">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="" class="inptText"><input type="submit" value="   搜索" class="inptButton">
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="http://yanan.rztaiyang.com/admin/shop/apply.html">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>分类：</span>
+                            <select id="cate_id" name="cate_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <option value="1">餐饮美食</option>                
+                                    <option value="42">&nbsp;&nbsp;江浙菜</option><option value="45">&nbsp;&nbsp;火锅</option><option value="46">&nbsp;&nbsp;川菜</option><option value="47">&nbsp;&nbsp;徽菜</option><option value="52">&nbsp;&nbsp;韩国菜</option><option value="51">&nbsp;&nbsp;日本料理</option><option value="2">&nbsp;&nbsp;小吃快餐</option><option value="43">&nbsp;&nbsp;面包糕点</option><option value="44">&nbsp;&nbsp;海鲜</option><option value="48">&nbsp;&nbsp;东北菜</option><option value="49">&nbsp;&nbsp;西餐</option><option value="50">&nbsp;&nbsp;粤菜</option><option value="53">&nbsp;&nbsp;其他</option><option value="65">旅游</option>                
+                                    <option value="66">&nbsp;&nbsp;国内</option><option value="12">休闲娱乐</option>                
+                                    <option value="54">&nbsp;&nbsp;电影</option><option value="17">&nbsp;&nbsp;KTV</option><option value="18">&nbsp;&nbsp;足疗按摩</option><option value="55">&nbsp;&nbsp;酒吧</option><option value="56">&nbsp;&nbsp;咖啡厅</option><option value="57">&nbsp;&nbsp;温泉</option><option value="58">&nbsp;&nbsp;棋牌室</option><option value="13">酒店</option>                
+                                    <option value="19">&nbsp;&nbsp;经济型酒店</option><option value="20">&nbsp;&nbsp;五星级酒店</option><option value="59">&nbsp;&nbsp;四星级酒店</option><option value="60">&nbsp;&nbsp;三星级酒店</option><option value="61">&nbsp;&nbsp;度假村</option><option value="6">结婚</option>                
+                                    <option value="28">&nbsp;&nbsp;婚庆公司</option><option value="29">&nbsp;&nbsp;婚纱摄影</option><option value="30">&nbsp;&nbsp;新娘跟妆</option><option value="31">&nbsp;&nbsp;司仪服务</option><option value="62">&nbsp;&nbsp;婚戒首饰</option><option value="10">母婴</option>                
+                                    <option value="38">&nbsp;&nbsp;母婴用品</option><option value="63">&nbsp;&nbsp;亲子摄影</option><option value="7">家居</option>                
+                                    <option value="32">&nbsp;&nbsp;装修公司</option><option value="33">&nbsp;&nbsp;建材商</option><option value="34">&nbsp;&nbsp;家具</option><option value="35">&nbsp;&nbsp;软装布艺</option><option value="8">汽车</option>                
+                                    <option value="36">&nbsp;&nbsp;4S店</option><option value="41">&nbsp;&nbsp;驾校</option><option value="9">丽人</option>                
+                                    <option value="40">&nbsp;&nbsp;SPA</option><option value="11">教育培训</option>                
+                                    <option value="21">&nbsp;&nbsp;幼儿</option><option value="22">&nbsp;&nbsp;小学</option><option value="24">&nbsp;&nbsp;初中</option><option value="23">&nbsp;&nbsp;高中</option><option value="25">&nbsp;&nbsp;计算机</option><option value="27">&nbsp;&nbsp;外语</option><option value="26">&nbsp;&nbsp;其他</option><option value="14">生活服务</option>                
+                                    <option value="64">&nbsp;&nbsp;加油站</option><option value="16">&nbsp;&nbsp;便利店</option><option value="15">&nbsp;&nbsp;医院</option>                            </select>
+                        </label>
+                           <label>
+                            <span>区域：</span>
+                             <select name="city_id" id="city_id" class="select w100"><option value="0">请选择.....</option><option value="1">合肥</option><option value="2">安庆</option><option value="3">上海</option><option value="4">北京</option></select>
+                            <select name="area_id" id="area_id" class="select w100"></select>
+                     
+                        </label>
+                <script src="./shenhe_files/cityarea.html"></script>
+                <script>
+                    var city_id = 0;
+                    var area_id = 0;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                    });
+                </script>
+
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="" class="inptText">
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索" class="inptButton">
+                </div>
+        
+        <div class="clear"></div>
+    </div></form>
+    <form target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tbody><tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id"></td>
+                    <td class="w50">ID</td>
+                    <td>管理者(UID)</td>
+                    <td>分类</td>
+                    <td>所在区域商圈</td>
+                    <td>商铺名称</td>
+                    <td>商铺LOGO</td>
+                    <td>店铺电话</td>
+                    <td>申请时间</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                        <td><input class="child_shop_id" type="checkbox" name="shop_id[]" value="1"></td>
+                        <td>1</td>
+                        <td>test(1)</td>
+                        <td>餐饮美食</td>
+                        <td>合肥-万达商圈-万达</td>
+                        <td>test</td>
+                        <td><img src="./shenhe_files/thumb_5823130e32009.png" class="w80"></td>
+                        <td>15555555555</td>
+                        <td>2016-11-09 20:14:24</td>
+                        <td>
+                            <a href="http://yanan.rztaiyang.com/admin/shop/edit/shop_id/1.html" class="remberBtn ">编辑</a>                            <a href="http://yanan.rztaiyang.com/admin/shop/audit/shop_id/1.html" mini="act" class="remberBtn ">审核</a>                            <a href="http://yanan.rztaiyang.com/admin/shop/delete/shop_id/1.html" mini="act" class="remberBtn ">删除</a>                        </td>
+                    </tr>            </tbody></table>
+            <div class="paging"> <span>1 条记录 1/1 页</span>          </div>        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <a href="http://yanan.rztaiyang.com/admin/shop/audit.html" mini="list" class=" remberBtn ">批量审核</a>                <a href="http://yanan.rztaiyang.com/admin/shop/delete.html" mini="list" class=" a2 ">批量删除</a>            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+</div>
+
+<div id="_my97DP" style="position: absolute; top: -1970px; left: -1970px;"><iframe style="width: 186px; height: 198px;" src="./shenhe_files/My97DatePicker.html" frameborder="0" border="0" scrolling="no"></iframe></div></body></html>

@@ -1,0 +1,216 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/shuang/style.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<script src="js/jquery.min.js"></script>
+		<title>视图配置</title>
+		<script src="js/movable.list.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/multiple.movable.list.js"></script>
+		<link rel="stylesheet" rev="stylesheet" href="css/shuang/movable.list.css" type="text/css" media="screen">
+		<link rel="stylesheet" rev="stylesheet" href="css/main.css" type="text/css" />
+	</head>
+	<body class="bodycolor" scroll="no" unselectable="">
+		<form id="szrx">
+			<script type="text/javascript">
+				function checkre(){
+					var userid = $.session.get('userid');
+					var token  = $.session.get('token');
+					var str = $("#view_fields_to_sel option").map(function(){return $(this).val();}).get().join(",");
+					$.ajax({
+						url: 'http://120.25.226.234/cdds/htgl',
+						type: 'POST',
+						dataType: 'json',
+						data: {version: 0.1,action:'spxj',spids:str,userid:userid,token:token},
+					})
+					.done(function(data) {
+						if(data.statusCode == -1){
+							alert("下架成功");
+						} 
+					})
+					.fail(function() {
+						console.log("error");
+					})
+					.always(function() {
+						console.log("complete");
+					});
+				}
+			</script>
+		<table width="100%"  align="center" cellpadding="0" cellspacing="0" style="table-layout: fixed;word-break: break-all;">
+			<tbody>
+				<tr>
+					<td>
+						<div id="view_fields" style="margin-top: 10px; margin-right: auto; margin-bottom: 10px; margin-left: auto; height:330px; width: 700px; ">
+							<table style="border-collapse:collapse" cellspacing="0" cellpadding="0" height="260" width="500" align="center">
+								<tbody>
+								    <tr>
+						                <td class="lfTdBt">产品种类：</td>
+						                <td class="rgTdBt">
+						                    <select name="data[category_id]" style="float: left;"  id="category_id" class="seleFl w210"></select>
+						                    <select name="splb" style="float: left;"  id="category2_id" class="seleFl w210"></select>
+						                </td>
+               					    </tr>
+					                
+									<tr>
+										<td>
+											<div id="view_fields_from" style="height: 260px; width: 230px; ">
+												<table style="border-collapse:collapse" cellspacing="0" cellpadding="0" height="260" width="230">
+													<tbody>
+														<tr>
+															<td>
+																<div style="float:right;height:260;" class="movableSelContainer">
+																	<div style="height:30px;width:223px;line-height:30px" class="title"><b>未选择字段</b></div>
+																	<div style="height:195px;width:223px">
+																		<table style="border-collapse:collapse" width="100%" height="100%">
+																			<tbody>
+																				<tr>
+																					<td width="100%">
+																						<select id="view_fields_from_sel" name="view_fields_from_sel" multiple="" style="width:215px; height:190px">
+																						</select>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																	<div class="allBar"><input type="button" value="全选" onclick="MovableList.selAll('view_fields_from')" id="view_fields_from_selAllBtn" name="view_fields_from_selAllBtn" class="smallButtonA"></div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</td>
+										<td class="movableCenter" align="center" width="60px">
+											<div id="view_fields_center"><span style="display:block;"><input type="button" id="view_fields_to_leftBtn" value="左移" onclick="MultipleMovableList.moveSelOp('view_fields_to_sel', 'view_fields_from_sel')" class="SmallButtonA"></span><br><span style="display:block;"><input type="button" id="view_fields_to_rightBtn" value="右移" onclick="MultipleMovableList.moveSelOp('view_fields_from_sel', 'view_fields_to_sel')" class="SmallButtonA"></span><br></div>
+										</td>
+										<td>
+											<div id="view_fields_to" style="height: 260px; width: 260px; ">
+												<table style="border-collapse:collapse" cellspacing="0" cellpadding="0" height="260" width="260">
+													<tbody>
+														<tr>
+															<td>
+																<div style="float:left;height:260;" class="movableSelContainer">
+																	<div style="height:30px;width:198px;line-height:30px" class="title"><b>己选择字段</b></div>
+																	<div style="height:195px;width:198px">
+																		<table style="border-collapse:collapse" width="100%" height="100%">
+																			<tbody>
+																				<tr>
+																					<td width="100%">
+																						<select value="2" id="view_fields_to_sel" name="view_fields_to_sel" multiple="" style="width:190px; height:190px">
+																							
+																						</select>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																	<div class="allBar"><input type="button" value="全选" onclick="MovableList.selAll('view_fields_to')" id="view_fields_to_selAllBtn" name="view_fields_to_selAllBtn" class="smallButtonA"></div>
+																</div>
+															</td>
+															<td>
+																<div style="height:260;" class="movableBtnContainer">
+																	<div style="height:30px;width:60px;line-height:30px" class="title"><b>排序</b></div>
+																	<div style="height:225px; width:60px;">
+																		<table style="border-collapse:collapse" height="100%" width="100%">
+																			<tbody>
+																				<tr>
+																					<td align="center"><span style="display:block;"><input type="button" value="置顶" onclick="MovableList.moveTop('view_fields_to')" id="view_fields_to_topBtn" name="view_fields_to_topBtn" class="SmallButtonA"></span><br><span style="display:block;"><input type="button" value="上移" onclick="MovableList.moveUp('view_fields_to')" id="view_fields_to_upBtn" name="view_fields_to_upBtn" class="SmallButtonA"></span><br><span style="display:block;"><input type="button" value="下移" onclick="MovableList.moveDown('view_fields_to')" id="view_fields_to_downBtn" name="view_fields_to_downBtn" class="SmallButtonA"></span><br><span style="display:block;"><input type="button" value="置底" onclick="MovableList.moveBottom('view_fields_to')" id="view_fields_to_bottomBtn" name="view_fields_to_bottomBtn" class="SmallButtonA"></span><br></td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="form-group">
+			<div class="">
+				<input type="button" style="width: 50%;margin-left: 25%;" class=" btn btn-danger" onclick="checkre();" value="提交" />
+			</div>
+		</div>
+		<script>
+		$(function(){
+			  var userid = $.session.get('userid');
+			  var token = $.session.get('token');
+			$.ajax({
+			        url: 'http://120.25.226.234/cdds/htgl',
+			        type: 'POST',
+			        dataType: 'json',
+			        data: {version: '0.1',action: 'splb',userid: userid,token: token},
+      	   	})
+     		 .done(function(data) {
+		        var category_str = '<option value="0">请选择.....</option>';
+		        var category2_str = '<option value="0">请选择.....</option>';
+		        	$.each(data['resultObject'],function(n,value) {
+		            if(0 == value['lbid']){
+		                category_id = value['lbid'];
+		                $.each(value['lb2s'],function(a,value) {
+		                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+		                });
+		                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+		            }else{
+		                category_id = value['lbid'];
+		                $.each(value['lb2s'],function(a,value) {
+		                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+		                });
+		                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+		            }
+			        });
+			        $("#category_id").html(category_str);
+			        $("#category2_id").html(category2_str);
+		      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      $("#category_id").change(function() {
+        var category_id = $("#category_id").val();
+        var category2_str = '';
+        var options = $("#category2_id").children('option');
+        $.each(options,function(index, el) {
+            if($(this).attr('id') == category_id){
+                $(this).removeAttr('hidden');
+            }else{
+                $(this).attr({
+                    hidden: 'hidden'
+                });
+            }
+            category2_str += $(this).prop('outerHTML');
+        });
+        $("#category2_id").html(category2_str);
+      	});
+      	$("#category2_id").change(function() {
+      		 var userid = $.session.get('userid');
+			  var token = $.session.get('token');
+      		  var category_id = $("#category2_id").val();
+      		 $.get("http://120.25.226.234/cdds/htgl",{version: '0.1',action: 'splist',userid: userid,token: token,splb:category_id},function(data,textStatus){
+      		 	$("#view_fields_from_sel").html("");
+      		 	$.each(data.resultObject,function(index, item) {
+		           $("#view_fields_from_sel").append(
+		           	"<option value='"+item.spid+"'>"+item.spmc+"</option>"
+		           );
+        		});
+      		 },"json")
+      	});
+      	
+		})
+		</script>
+		</form>
+	<script src="js/jquerySession.js"></script>
+	</body>
+</html>

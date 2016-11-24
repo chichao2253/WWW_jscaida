@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+		<title></title>		
+		<link rel="stylesheet" href="css/land.css">
+		<link rel="stylesheet" href="css/pub.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/umeditor.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.form.js"></script>		
+	</head>
+	<body>
+		<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">优惠活动列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>前台申请 后台审核！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+       
+    <form target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tbody id="shenhe"><tr>
+                   
+                    <td >活动名称</td>
+                    <td>商品名称</td>
+                    <td>照片</td>
+                     <td>时间</td>
+                      <td>操作</td>
+                  
+               		 </tr>
+              		      </tbody></table>
+          
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                          </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+		
+		
+<div class="mainBt">
+    <ul>
+        <li class="li1">添加优惠活动</li>
+       
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form id="addsp" method="post" enctype="multipart/form-data" >
+        	<input id="token" name="token" value="" type="hidden">
+			<input id="userid" name="userid" value="" type="hidden">
+			<input id="version" name="version" value="0.1" type="hidden">
+			<input id="action" name="action" value="setyhhd" type="hidden">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >               
+                <tr>
+                    <td class="lfTdBt">产品种类：</td>
+                    <td class="rgTdBt">
+                       <select name="data[category_id]" style="float: left;"  id="category_id" class="seleFl w210"></select>
+                       <select name="splb" style="float: left;"  id="category2_id" class="seleFl w210"></select>
+                       <select name="spid" style="float: left;"  id="category3_id" class="seleFl w210">
+                       		<option >请选择...</option>
+                       </select>                      
+                    </td>                                    
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">活动名称：</td>
+                    <td class="rgTdBt"><input type="text" name="hdmc" value="" class="manageInput form-control" style="width: 20%;" />
+                    </td>
+                </tr>  
+                 <tr>
+                 	 <td class="lfTdBt">活动照片：</td>
+                     <td  class="rgTdBt" >
+                    	 <input class="manageInput" type="file" name="image" />
+                    	
+                    </td>
+                </tr>  
+                
+            <tr>
+    </table>
+            <div style="margin-left:140px;margin-top:20px">
+            	
+                <input type="button" value="确认添加" onclick="add();"  class="smtQrIpt" />
+                <div>
+</form>
+</div>
+</div>
+<script>
+function deleteactive(obj){
+	var hdid = $(obj).val();
+	  	$.ajax({
+	  		type:"get",
+	  		url:"http://120.25.226.234/cdds/htgl?version=0.1&action=yhhddelete",
+	  		async:true,
+	  		data:{hdid:hdid,token:$.session.get('token'),userid:$.session.get('userid')}
+	  	})
+	  	.done(function(data,textStatus){
+	  		alert("删除成功");
+	  		location.href="youhuihuodong.html";
+	  	})
+	  	.always(function(){
+	  		
+	  	});
+}
+function add(){
+	
+    var userid = $.session.get('userid');
+    var token  = $.session.get('token');
+    var formData = new FormData($( "#addsp" )[0]);  
+    		$.ajax({
+    			type:"POST",
+    			url:"http://120.25.226.234/cdds/htgl",
+    			data: formData,  
+        	  	async: false,  
+          		cache: false,  
+         	 	contentType: false,  
+         	 	processData: false,  
+         	 	dataType:"json"
+    		})
+    		.done(function(data){
+    			if(data.statusCode==-1){
+    				alert("添加成功");
+    				location.href="youhuihuodong.html";
+    			}else{
+    				alert("添加失败");
+    			}
+    		
+    		})
+    		.fail(function(){
+    			console.log("errors")
+    		})
+    		.always(function(){
+    			
+    		});
+	
+}
+$(function(){
+	  $("#token").val($.session.get('token'));
+      $("#userid").val($.session.get('userid'));
+	  var userid = $.session.get('userid');
+      var token = $.session.get('token');
+      $.get("http://120.25.226.234/cdds/htgl",{
+    				version:0.1,
+    				token:$.session.get('token'),
+    				userid:$.session.get('userid'),    				
+    				action:"yhhdlist"
+    			},function(data,textStatus){				
+    				$.each(data.resultObject, function(i,item) {
+    					var picimg="http://120.25.226.234/cdds/sysimageget?picid="+item.picid+"&version=0.1&token="+token+"&userid="+userid+"";
+    					$("#shenhe").append(
+    						  "<tr><td>"+item.hdmc+"</td>"+
+    						  "<td>"+item.spmc+"</td>"+    						 
+    						  "<td><img style='width: 320px;height: 110px;' src='"+picimg+"' /></td>"+
+    						  "<td>"+item.time+"</td>"+
+    						   "<td><button class='remberBtn' onclick='deleteactive(this)' id='' value='"+item.hdid+"'>删除</button></td></tr>"
+    					);
+    				});
+    			},"json");
+      $.ajax({
+        url: 'http://120.25.226.234/cdds/htgl',
+        type: 'POST',
+        dataType: 'json',
+        data: {version: '0.1',action: 'splb',userid: userid,token: token},
+      })
+      .done(function(data) {
+        var category_str = '';
+        var category2_str = '';
+        $.each(data['resultObject'],function(n,value) {
+            if(0 == value['lbid']){
+                category_id = value['lbid'];
+                $.each(value['lb2s'],function(a,value) {
+                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+                });
+                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+            }else{
+                category_id = value['lbid'];
+                $.each(value['lb2s'],function(a,value) {
+                    category2_str += '<option id="'+category_id+'"  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+                });
+                category_str += '<option  value="'+value['lbid']+'">'+value['lbmc']+'</option>';
+            }
+        });
+        $("#category_id").html(category_str);
+        $("#category2_id").html(category2_str);
+
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      $("#category_id").change(function() {
+        var category_id = $("#category_id").val();
+        var category2_str = "<option value='' >请选择...</option>";
+        var options = $("#category2_id").children('option');
+        $.each(options,function(index, el) {
+            if($(this).attr('id') == category_id){
+                $(this).removeAttr('hidden');
+            }else{
+                $(this).attr({
+                    hidden: 'hidden'
+                });
+            }
+            category2_str += $(this).prop('outerHTML');
+        });
+        $("#category2_id").html(category2_str);
+      });
+       $("#category2_id").change(function() {
+        var category2_id = $("#category2_id").val();      
+        var userid = $.session.get('userid');
+	    var token = $.session.get('token');       
+      		 $.get("http://120.25.226.234/cdds/htgl",{version: '0.1',action: 'splist',userid: userid,token: token,splb:category2_id},function(data,textStatus){
+      		 	$("#category3_id").html("");
+      		 	$.each(data.resultObject,function(index, item) {
+		           $("#category3_id").append(
+		           	"<option value='"+item.spid+"'>"+item.spmc+"</option>"
+		           );
+        		});
+      		 },"json")
+        
+       
+      });
+})		
+		</script>
+    <script src="js/jquerySession.js"></script>
+	</body>
+</html>

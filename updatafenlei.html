@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0079)http://yanan.rztaiyang.com/mall/index.php?controller=goods&action=category_edit -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>后台管理</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<link rel="stylesheet" href="css/admin.css">
+		<meta name="robots" content="noindex,nofollow">
+		<link rel="shortcut icon" href="http://yanan.rztaiyang.com/mall/favicon.ico">
+	</head>
+	<body>
+		<div class="container">
+			<div id="admin_right">
+				<div class="headbar">
+					<div class="position"><span>商品</span><span>&gt;</span><span>商品分类管理</span><span>&gt;</span><span>编辑分类</span></div>
+				</div>
+				<div class="content_box">
+					<form action="#" id="addfenlei" method="post" enctype="multipart/form-data">
+					<div class="content form_content" style="height: 546px;">						
+							<input id="token" name="token" value="" type="hidden">
+							<input id="userid" name="userid" value="" type="hidden">
+							<input id="lbid" name="lbid" value="" type="hidden">
+							<input id="version" name="version" value="0.1" type="hidden">
+								<input id="action" name="action" value="splbedit" type="hidden">
+							<table class="form_table" cellpadding="0" cellspacing="0">
+								<colgroup>
+									<col width="150px">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>分类名称：</th>
+										<td>
+											<input id="lbmc" class="normal" name="lbmc" type="text" value="" alt="分类名称不能为空"><label>* 必选项</label>
+										</td>
+									</tr>
+									<tr>
+										<th>上级分类：</th>
+										<td>
+											<select id="yijiefenlei" name="parentid">
+												
+											</select>
+											<label>* 如果添加一级分类，此处不选择。</label>
+										</td>
+									</tr>
+									<tr>
+										<th>选择分类照片：</th>
+										<td><input id="lbimg" class="normal" name="image" accept="image/png,image/gif,image/jpeg"   type="file" value="" >
+										<label>*如果二级分类，请必须选择分类照片。</label>
+										</td>
+										
+									</tr>
+									<tr>
+										<th>排序：</th>
+										<td><input class="normal" name="sort" empty="" alt="排序必须是一个数字" type="text" value=""></td>
+									</tr>
+									
+										<td></td>
+										<td><button onclick="check()"  class="submit" type="submit"><span>确 定</span></button></td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+					</form>
+				</div>
+
+				<script type="text/javascript">
+					
+				</script>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//DOM加载完毕执行
+			$(function() {
+				//隔行换色
+				$(".list_table tr:nth-child(even)").addClass('even');
+				$(".list_table tr").hover(
+					function() {
+						$(this).addClass("sel");
+					},
+					function() {
+						$(this).removeClass("sel");
+					}
+				);
+			});
+		</script>
+		<div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
+	</body>
+	<div></div>
+	 <script src="js/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="js/jquerySession.js"></script>
+    <script>
+    $(function(){  
+    		
+    		
+    		$.get("http://120.25.226.234/cdds/htgl",{
+    				version:0.1,
+    				token:$.session.get('token'),
+    				userid:$.session.get('userid'),    				
+    				action:"splb2"
+    			},function(data,textStatus){
+    				var yijifenlei=0;
+    				$.each(data.resultObject, function(i,item) {
+    					if(item.lbid==$.session.get("xiugaizhongleiid")){
+    							
+    					$.each(data.resultObject, function(i,itemsun) {
+    					if(itemsun.lbid==item.parentid){
+    					yijifenlei=1;    					
+    					$("#yijiefenlei").append(
+    						"<option value='"+itemsun.lbid+"'>"+itemsun.lbmc+"</option>"
+    					);
+    					}
+    					});
+    					
+    					}
+    				});
+    				
+    				if(yijifenlei==0){
+    					$("#yijiefenlei").append(
+    						"<option value=''>一级分类</option>"
+    					);
+    				}
+    			},"json");
+    			$("#token").val($.session.get('token'));
+    			$("#userid").val($.session.get('userid'));
+    			$("#lbid").val($.session.get('xiugaizhongleiid'));
+    			
+    			
+    	});
+    	function check(){
+    		 var userid = $.session.get('userid');
+      		 var token = $.session.get('token');
+      		 var parentid=$("#yijiefenlei").val();
+      		 var lbmc=$("#lbmc").val();
+      		 var lbimage=$("#lbimg").val();
+      		var formData = new FormData($( "#addfenlei" )[0]);  
+    		$.ajax({
+    			type:"POST",
+    			url:"http://120.25.226.234/cdds/htgl",
+    			data: formData,  
+        	  	async: false,  
+          		cache: false,  
+         	 	contentType: false,  
+         	 	processData: false,  
+         	 	dataType:"json"
+    		})
+    		.done(function(data){
+    			if(data.statusCode==-1){
+    				alert("修改成功");
+    				
+    			}else{
+    				alert("修改失败");
+    			}
+    		
+    		})
+    		.fail(function(){
+    			console.log("errors")
+    		})
+    		.always(function(){
+    			
+    		});
+    		
+    	}
+</script>
+</html>

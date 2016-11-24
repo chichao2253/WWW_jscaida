@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://yanan.rztaiyang.com/admin/shop/apply.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <!-- <link href="/Baocms/Tpl/statics/css/index.css" rel="stylesheet" type="text/css" /> -->
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="css/land.css" rel="stylesheet" type="text/css">
+        <link href="css/pub.css" rel="stylesheet" type="text/css">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+         <meta name="renderer" content="webkit">
+
+    </head>
+    <body style="background-color: #f1f1f1;">
+         <iframe id="baocms_frm" name="baocms_frm" style="display:none;" src="#"></iframe>
+   <div class="main">
+   
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家审核列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>前台申请 后台审核！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+       
+    <form target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tbody id="shenhe"><tr>
+                   
+                    <td >申请人姓名</td>
+                    <td>身份证号</td>
+                    <td>手机号</td>
+                     <td>时间</td>
+                    <td>地址</td>
+                   
+                    <td>操作</td>
+               		 </tr>
+              		      </tbody></table>
+          
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                          </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+  <script src="js/jQuery/jQuery-2.1.4.min.js"></script>
+  <script src="js/jquerySession.js"></script>
+ <script src="js/layer.js" charset="utf-8"></script>
+ <script>
+	function shenhe(obj){
+		var sqid = $(obj).val();
+	  	$.ajax({
+	  		type:"get",
+	  		url:"http://120.25.226.234/cdds/htgl?version=0.1&action=zxysqsh&shjg=1",
+	  		async:true,
+	  		data:{sqid:sqid,token:$.session.get('token'),userid:$.session.get('userid')}
+	  	})
+	  	.done(function(data,textStatus){
+	  		alert("审核成功");
+	  		location.href="zxysh.html";
+	  	})
+	  	.always(function(){
+	  		
+	  	});
+	}
+	function shenhebuchenggong(obj){
+		var sqid = $(obj).val();
+	  	$.ajax({
+	  		type:"get",
+	  		url:"http://120.25.226.234/cdds/htgl?version=0.1&action=zxysqsh&shjg=0",
+	  		async:true,
+	  		data:{sqid:sqid,token:$.session.get('token'),userid:$.session.get('userid')}
+	  	})
+	  	.done(function(data,textStatus){
+	  		alert("审核不通过");
+	  		location.href="zxysh.html";
+	  	})
+	  	.always(function(){
+	  		
+	  	});
+	}
+	$(function(){		
+    			$.get("http://120.25.226.234/cdds/htgl",{
+    				version:0.1,
+    				token:$.session.get('token'),
+    				userid:$.session.get('userid'),    				
+    				action:"zxysqshlist"
+    			},function(data,textStatus){    				
+    				$.each(data.resultObject, function(i,item) {
+    					$("#shenhe").append(
+    						  "<tr><td>"+item.name+"</td>"+
+    						  "<td>"+item.sfzh+"</td>"+
+    						  "<td>"+item.phone+"</td>"+
+    						  "<td>"+item.time+"</td>"+
+    						  "<td>"+item.address+"</td>"+
+    						  "<td>"+    						
+    						  "<button id='"+item.sqid+"t' value='"+item.txid+"' hidden='hidden'></button>"+
+    						  "<button id='"+item.sqid+"z' value='"+item.sfzzm+"' hidden='hidden'></button>"+
+    						  "<button id='"+item.sqid+"f' value='"+item.sfzfm+"' hidden='hidden'></button>"+
+    						  "<button onclick='chakan(this)'  class='layui-btn site-demo-layer remberBtn' data-type='notice' value='"+item.sqid+"' name='shid'>查看详细信息</button>"+
+    						  "<button class='remberBtn' onclick='shenhe(this)' id='' value='"+item.sqid+"'>审核</button>"+
+    						  "<button class='remberBtn' onclick='shenhebuchenggong(this)' id='' value='"+item.sqid+"'>审核不成功</button>"+
+    						  "</td></tr>"
+    					);
+    				});
+    			},"json");
+	});
+	function chakan(obj){
+		var txid =$("#"+$(obj).val()+"t").val();
+		var sfzzm =$("#"+$(obj).val()+"z").val();
+		var sfzfm =$("#"+$(obj).val()+"f").val();
+		var imgurl="http://120.25.226.234/cdds/sysimageget?version=0.1&picid=";
+ 		layer.open({
+ 		 type: 1,
+  		offset:'100px',
+  		area: ['600px', '360px'],
+  		shadeClose: true, //点击遮罩关闭
+  		content: "<div style='padding:20px;'><h1>头像</h1><br/><img style='width:150px;height:150px' src='"+imgurl+txid+"' /><br/><h1>身份证正面</h1><br/><img style='width:350px;height:200px' src='"+imgurl+sfzzm+"' /><br/><h1>身份证反面</h1><br/><img style='width:350px;height:200px' src='"+imgurl+sfzfm+"' /></div>"
+  });
+	}
+</script>
+
+    </body></html>
+    
